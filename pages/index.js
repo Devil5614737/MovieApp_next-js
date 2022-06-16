@@ -96,15 +96,57 @@ export default function Home() {
         <div className={styles.wrapper}>
           <div className={styles.genreSelection}>
             <p className={styles.genre}>Genres</p>
-            <div className={styles.genres}>
-              <p onClick={handleTrendings}>Trendings</p>
-              <p onClick={handleTopRated}>TopRated</p>
-              <p onClick={handleAction}>Action</p>
-              <p onClick={handleComedy}>Comedy</p>
-              <p onClick={handleHorror}>Horror</p>
-              <p onClick={handleRomantic}>Romantic</p>
-              <p onClick={handleDocumentaries}>Documentaries</p>
-            </div>
+            <select id="cars" className={styles.genreSelect}>
+              <option
+                onClick={handleTrendings}
+                className={styles.option}
+                value="trending"
+              >
+                Trendings
+              </option>
+              <option
+                onClick={handleTopRated}
+                className={styles.option}
+                value="toprated"
+              >
+                TopRated
+              </option>
+              <option
+                onClick={handleAction}
+                className={styles.option}
+                value="action"
+              >
+                Action
+              </option>
+              <option
+                onClick={handleComedy}
+                className={styles.option}
+                value="comedy"
+              >
+                Comedy
+              </option>
+              <option
+                onClick={handleHorror}
+                className={styles.option}
+                value="Horror"
+              >
+                Horror
+              </option>
+              <option
+                onClick={handleRomantic}
+                className={styles.option}
+                value="Romantic"
+              >
+                Romantic
+              </option>
+              <option
+                onClick={handleDocumentaries}
+                className={styles.option}
+                value="documentaries"
+              >
+                Documentaries
+              </option>
+            </select>
           </div>
           {loading ? (
             <p style={{ color: "white", fontSize: "1.6em" }}>Loading....</p>
