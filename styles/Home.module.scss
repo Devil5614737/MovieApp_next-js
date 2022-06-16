@@ -1,0 +1,297 @@
+@import "variable";
+
+.header {
+  animation-direction: reverse;
+  animation-name: slideShow;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  width: 100vw;
+  height: 70vh;
+  animation-timing-function: ease-in-out;
+  z-index: 1;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      172.5deg,
+      rgba(0, 0, 0, 0.53) 47.25%,
+      rgba(0, 0, 0, 0.0848) 83.8%
+    );
+    z-index: -1;
+  }
+}
+.navContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  .nav {
+    padding: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .logo {
+      p {
+        font-weight: bold;
+        color: white;
+        font-size: 2em;
+      }
+    }
+    .links {
+      ul {
+        display: flex;
+        align-items: center;
+        li {
+          margin-left: 32px;
+          &:nth-of-type(4) {
+            background-color: map-get($colors, "loginBtn");
+            padding: 0.3em 2em;
+          }
+          a {
+            color: white;
+            font-size: 1.6em;
+          }
+          p {
+            color: white;
+            font-size: 1.6em;
+          }
+        }
+      }
+    }
+  }
+}
+
+.heroContent {
+  margin-top: 42px;
+  .content {
+    display: grid;
+    place-items: center;
+    .heroText {
+      p {
+        color: white;
+        font-weight: bold;
+        font-size: 4em;
+      }
+    }
+    .searchBox {
+      display: flex;
+      align-items: center;
+      margin-top: 15px;
+
+      input {
+        min-width: 300px;
+        width: 100%;
+        height: 50px;
+        border-radius: 5px;
+        border: none;
+        font-size: 1.5em;
+        padding: 0.5em;
+      }
+      .searchBtn {
+        border-radius: 5px;
+        height: 50px;
+        width: 60px;
+        margin-left: 12px;
+        background-color: map-get($colors, "loginBtn");
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+        align-items: center;
+      }
+    }
+  }
+}
+
+.main {
+  // margin-top: 22px;
+  .wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2em;
+    .genreSelection {
+      display: flex;
+      align-items: center;
+      margin-bottom: 22px;
+      .genres {
+        display: flex;
+        align-items: center;
+        margin-left: 32px;
+        p {
+          color: white;
+          font-size: 1.2em;
+          margin-right: 42px;
+          background-color: #15157b;
+          padding: 0.3em 1em;
+          cursor: pointer;
+        }
+      }
+      .genre {
+        color: white;
+        font-weight: bold;
+        font-size: 1.8em;
+      }
+    }
+    .movieThumbnails {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 22px 22px;
+      .thumbnails {
+        transition: all 0.4s linear;
+        position: relative;
+        cursor: pointer;
+        &:hover {
+          &::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+              180deg,
+              rgba(217, 217, 217, 0) 17.25%,
+              rgba(0, 0, 0, 0.81) 73.13%,
+              rgba(0, 0, 0, 0.81) 110.36%
+            );
+            z-index: 1;
+          }
+          .movieName {
+            opacity: 1;
+          }
+        }
+        .movieName {
+          position: absolute;
+          bottom: 10px;
+          color: white;
+          z-index: 12;
+          left: 12px;
+          opacity: 0;
+          p {
+            font-weight: bold;
+            font-size: 1.7em;
+          }
+        }
+      }
+    }
+  }
+}
+
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.53);
+  opacity: 1;
+  // visibility: hidden;
+  transform: scale(1.1);
+  transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+  z-index: 999;
+}
+
+.modalContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: map-get($colors, "modal");
+
+  width: 45rem;
+  border-radius: 0.5rem;
+  z-index: 999;
+  color: black;
+  // overflow-y: auto;
+  height: fit-content;
+  .movieInfo {
+    padding: 1.9rem 1.5rem;
+    .movieName {
+      font-weight: bold;
+      font-size: 2em;
+      color: white;
+    }
+    .ratings {
+      p {
+        font-size: 1.3em;
+        color: hotpink;
+      }
+    }
+    .movieDesc {
+      font-size: 1.3em;
+      margin-top: 12px;
+      color: rgb(233, 233, 233);
+    }
+    button {
+      font-weight: bold;
+      font-size: 1.4em;
+      padding: 0.3em 1em;
+      margin-top: 12px;
+      background-color: map-get($colors, "watchListBtn");
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      &:hover {
+        background-color: rgb(150, 28, 89);
+      }
+    }
+  }
+}
+
+.closeButton {
+  float: right;
+  width: 1.5rem;
+  line-height: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  background-color: lightgray;
+}
+
+.closeButton:hover {
+  background-color: darkgray;
+}
+
+.showModal {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.close {
+  position: absolute;
+  z-index: 999;
+  right: -220px;
+  top: 12px;
+  cursor: pointer;
+}
+
+@keyframes slideShow {
+  0% {
+    background: url("https://image.tmdb.org/t/p/original/6DrHO1jr3qVrViUO6s6kFiAGM7.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+  25% {
+    background: url("https://image.tmdb.org/t/p/original/rlCRM7U5g2hcU1O8ylGcqsMYHIP.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+  50% {
+    background: url("https://image.tmdb.org/t/p/original/9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+  75% {
+    background: url("https://image.tmdb.org/t/p/original/56v2KjBlU4XaOv9rVYEQypROD7P.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+  100% {
+    background: url("https://image.tmdb.org/t/p/original/kAVRgw7GgK1CfYEJq8ME6EvRIgU.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+}

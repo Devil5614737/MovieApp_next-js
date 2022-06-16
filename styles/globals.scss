@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat:wght@200;300;400;500;600&family=Poppins:wght@200;300;400;500;600&display=swap');
+@import 'variable';
+
+*{
+  padding:0;
+  margin:0;
+  box-sizing: border-box;
+}
+
+html{
+  font-size: 62.5%;
+}
+body {
+overflow-x:hidden;
+font-family:"Poppins",sans-serif;
+background-color: map-get($colors,'body' );
+}
+
+a,button,input{
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  font:inherit;
+}
+
+
