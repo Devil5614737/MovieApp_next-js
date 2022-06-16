@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Navbar } from "../components/Navbar";
 import styles from "../styles/Home.module.css";
@@ -27,11 +27,13 @@ export default function Home() {
   const { movies, error, loading } = movieData;
   const { movie } = movieInfos;
 
+  useEffect(() => {
+    dispatch(fetchMovie("trending"));
+  }, []);
+
   const handleTrendings = () => {
     dispatch(fetchMovie("trending"));
   };
-
-  // console.log(movies)
 
   const handleSearch = () => {
     dispatch(searchMovie(query));
@@ -93,7 +95,7 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.wrapper}>
           <div className={styles.genreSelection}>
-            <p className={styles.genre}>Genre</p>
+            <p className={styles.genre}>Genres</p>
             <div className={styles.genres}>
               <p onClick={handleTrendings}>Trendings</p>
               <p onClick={handleTopRated}>TopRated</p>
