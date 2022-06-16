@@ -1,16 +1,24 @@
-import Head from "next/head";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Navbar } from "../components/Navbar";
 import styles from "../styles/Home.module.css";
-import { fetchMovie, searchMovie, movieInfo } from "../actions/actions";
+import {
+  fetchMovie,
+  searchMovie,
+  movieInfo,
+  fetchTopRated,
+  fetchComedy,
+  fetchHorror,
+  fetchRomantic,
+  fetchAction,
+  fetchDocumentaries,
+} from "../actions/actions";
 
 export default function Home() {
   const dispatch = useDispatch();
   const [query, setQuery] = useState("");
   const [showModal, setShowModal] = useState(false);
-
 
   const movieData = useSelector((state) => state.fetchTheData);
   const searchData = useSelector((state) => state.searchTheData);
@@ -19,10 +27,9 @@ export default function Home() {
   const { movies, error, loading } = movieData;
   const { movie } = movieInfos;
 
-  useEffect(() => {
-  
-    dispatch(fetchMovie('trending'));
-  }, [dispatch]);
+  const handleTrendings = () => {
+    dispatch(fetchMovie("trending"));
+  };
 
   // console.log(movies)
 
@@ -32,9 +39,25 @@ export default function Home() {
 
   const imageLink = "https://image.tmdb.org/t/p/original";
 
+  const handleTopRated = () => {
+    dispatch(fetchTopRated());
+  };
 
-
-
+  const handleComedy = () => {
+    dispatch(fetchComedy());
+  };
+  const handleHorror = () => {
+    dispatch(fetchHorror());
+  };
+  const handleRomantic = () => {
+    dispatch(fetchRomantic());
+  };
+  const handleAction = () => {
+    dispatch(fetchAction());
+  };
+  const handleDocumentaries = () => {
+    dispatch(fetchDocumentaries());
+  };
 
   return (
     <>
@@ -72,21 +95,50 @@ export default function Home() {
           <div className={styles.genreSelection}>
             <p className={styles.genre}>Genre</p>
             <div className={styles.genres}>
-            <p>Trendings</p>
-            <p>TopRated</p>
-            <p>Action</p>
-            <p>Comedy</p>
-            <p>Horror</p>
-            <p>Romantic</p>
-            <p>Documentaries</p>
+              <p onClick={handleTrendings}>Trendings</p>
+              <p onClick={handleTopRated}>TopRated</p>
+              <p onClick={handleAction}>Action</p>
+              <p onClick={handleComedy}>Comedy</p>
+              <p onClick={handleHorror}>Horror</p>
+              <p onClick={handleRomantic}>Romantic</p>
+              <p onClick={handleDocumentaries}>Documentaries</p>
             </div>
           </div>
-          {loading?<p style={{color:'white',fontSize:'1.6em'}}>Loading....</p>:<div className={styles.movieThumbnails}>
-            {!searchData.movies
-              ? movies &&
-                movies.map((movie) => (
-                  <>
+          {loading ? (
+            <p style={{ color: "white", fontSize: "1.6em" }}>Loading....</p>
+          ) : (
+            <div className={styles.movieThumbnails}>
+              {!searchData.movies
+                ? movies &&
+                  movies.map((movie) => (
+                    <>
+                      <div
+                        onClick={() => {
+                          dispatch(movieInfo(movie));
+                          setShowModal(true);
+                        }}
+                        className={styles.thumbnails}
+                      >
+                        <Image
+                          layout="responsive"
+                          src={
+                            imageLink + movie.poster_path ||
+                            imageLink + movie.poster_path
+                          }
+                          alt="thumbnails"
+                          width={250}
+                          height={350}
+                          objectFit="cover"
+                        />
+                        <div className={styles.movieName}>
+                          <p>{movie.name || movie.title}</p>
+                        </div>
+                      </div>
+                    </>
+                  ))
+                : searchData.movies.map((movie) => (
                     <div
+                      key={movie.id}
                       onClick={() => {
                         dispatch(movieInfo(movie));
                         setShowModal(true);
@@ -108,38 +160,12 @@ export default function Home() {
                         <p>{movie.name || movie.title}</p>
                       </div>
                     </div>
-                  </>
-                ))
-              : searchData.movies.map((movie) => (
-                  <div
-                  key={movie.id}
-                    onClick={() => {
-                      dispatch(movieInfo(movie));
-                      setShowModal(true);
-                    }}
-                    className={styles.thumbnails}
-                  >
-                    <Image
-                      layout="responsive"
-                      src={
-                        imageLink + movie.poster_path ||
-                        imageLink + movie.poster_path
-                      }
-                      alt="thumbnails"
-                      width={250}
-                      height={350}
-                      objectFit="cover"
-                    />
-                    <div className={styles.movieName}>
-                      <p>{movie.name || movie.title}</p>
-                    </div>
-                  </div>
-                ))}
-          </div>}
-          
+                  ))}
+            </div>
+          )}
         </div>
         {showModal && (
-          <div  className={styles.modal}>
+          <div className={styles.modal}>
             <div className={styles.modalContent}>
               <svg
                 onClick={() => setShowModal(false)}
@@ -174,11 +200,25 @@ export default function Home() {
                   <p>Ratings : {movie && movie.vote_average}</p>
                 </div>
                 <p className={styles.movieDesc}>{movie && movie.overview}</p>
-                <button>Watchlist <svg style={{marginLeft:"5px"}} width="22" height="22" viewBox="0 0 28 25" fill="none">
-<path d="M13.1797 3.71094H14.8203C14.9661 3.71094 15.0391 3.77604 15.0391 3.90625V21.0938C15.0391 21.224 14.9661 21.2891 14.8203 21.2891H13.1797C13.0339 21.2891 12.9609 21.224 12.9609 21.0938V3.90625C12.9609 3.77604 13.0339 3.71094 13.1797 3.71094Z" fill="white"/>
-<path d="M4.8125 11.5723H23.1875C23.3333 11.5723 23.4062 11.6374 23.4062 11.7676V13.2324C23.4062 13.3626 23.3333 13.4277 23.1875 13.4277H4.8125C4.66667 13.4277 4.59375 13.3626 4.59375 13.2324V11.7676C4.59375 11.6374 4.66667 11.5723 4.8125 11.5723Z" fill="white"/>
-</svg>
-</button>
+                <button>
+                  Watchlist{" "}
+                  <svg
+                    style={{ marginLeft: "5px" }}
+                    width="22"
+                    height="22"
+                    viewBox="0 0 28 25"
+                    fill="none"
+                  >
+                    <path
+                      d="M13.1797 3.71094H14.8203C14.9661 3.71094 15.0391 3.77604 15.0391 3.90625V21.0938C15.0391 21.224 14.9661 21.2891 14.8203 21.2891H13.1797C13.0339 21.2891 12.9609 21.224 12.9609 21.0938V3.90625C12.9609 3.77604 13.0339 3.71094 13.1797 3.71094Z"
+                      fill="white"
+                    />
+                    <path
+                      d="M4.8125 11.5723H23.1875C23.3333 11.5723 23.4062 11.6374 23.4062 11.7676V13.2324C23.4062 13.3626 23.3333 13.4277 23.1875 13.4277H4.8125C4.66667 13.4277 4.59375 13.3626 4.59375 13.2324V11.7676C4.59375 11.6374 4.66667 11.5723 4.8125 11.5723Z"
+                      fill="white"
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>

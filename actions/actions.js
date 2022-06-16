@@ -1,7 +1,12 @@
 import {
+  FETCH_ACTION_SUCCESS,
   FETCH_DATA_FAILED,
   FETCH_DATA_REQUEST,
   FETCH_DATA_SUCCESS,
+  FETCH_DOCUMENTARIES_SUCCESS,
+  FETCH_HORROR_SUCCESS,
+  FETCH_ROMANTIC_SUCCESS,
+  FETCH_TOP_RATED_SUCCESS,
   LOGIN_USER_FAILED,
   LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
@@ -35,6 +40,157 @@ export const fetchMovie = (value) => async (dispatch) => {
     });
   }
 };
+export const fetchTopRated = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: FETCH_DATA_REQUEST,
+    });
+
+    const res = await fetch(
+      "https://api.themoviedb.org/3/movie/top_rated?api_key=2edf9f02e088272f6ff2eab6bf5fa21a&language=en-US"
+    );
+    const data = await res.json();
+
+    dispatch({
+      type: FETCH_TOP_RATED_SUCCESS,
+      payload: data.results,
+    });
+  } catch (error) {
+    dispatch({
+      type: FETCH_DATA_FAILED,
+      data: error,
+    });
+  }
+};
+export const fetchAction = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: FETCH_DATA_REQUEST,
+    });
+
+    const res = await fetch(
+      "https://api.themoviedb.org/3/discover/movie?api_key=2edf9f02e088272f6ff2eab6bf5fa21a&with_genres=28"
+    );
+    const data = await res.json();
+
+    dispatch({
+      type: FETCH_ACTION_SUCCESS,
+      payload: data.results,
+    });
+  } catch (error) {
+    dispatch({
+      type: FETCH_DATA_FAILED,
+      data: error,
+    });
+  }
+};
+export const fetchComedy = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: FETCH_DATA_REQUEST,
+    });
+
+    const res = await fetch(
+      "https://api.themoviedb.org/3/discover/movie?api_key=2edf9f02e088272f6ff2eab6bf5fa21a&with_genres=35"
+    );
+    const data = await res.json();
+
+    dispatch({
+      type: FETCH_ACTION_SUCCESS,
+      payload: data.results,
+    });
+  } catch (error) {
+    dispatch({
+      type: FETCH_DATA_FAILED,
+      data: error,
+    });
+  }
+};
+
+
+export const fetchHorror = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: FETCH_DATA_REQUEST,
+    });
+
+    const res = await fetch(
+      "https://api.themoviedb.org/3/discover/movie?api_key=2edf9f02e088272f6ff2eab6bf5fa21a&with_genres=27"
+    );
+    const data = await res.json();
+
+    dispatch({
+      type: FETCH_HORROR_SUCCESS,
+      payload: data.results,
+    });
+  } catch (error) {
+    dispatch({
+      type: FETCH_DATA_FAILED,
+      data: error,
+    });
+  }
+};
+export const fetchRomantic = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: FETCH_DATA_REQUEST,
+    });
+
+    const res = await fetch(
+      "https://api.themoviedb.org/3/discover/movie?api_key=2edf9f02e088272f6ff2eab6bf5fa21a&with_genres=10749"
+    );
+    const data = await res.json();
+
+    dispatch({
+      type: FETCH_ROMANTIC_SUCCESS,
+      payload: data.results,
+    });
+  } catch (error) {
+    dispatch({
+      type: FETCH_DATA_FAILED,
+      data: error,
+    });
+  }
+};
+export const fetchDocumentaries = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: FETCH_DATA_REQUEST,
+    });
+
+    const res = await fetch(
+      "https://api.themoviedb.org/3/discover/movie?api_key=2edf9f02e088272f6ff2eab6bf5fa21a&with_genres=99"
+    );
+    const data = await res.json();
+
+    dispatch({
+      type: FETCH_DOCUMENTARIES_SUCCESS,
+      payload: data.results,
+    });
+  } catch (error) {
+    dispatch({
+      type: FETCH_DATA_FAILED,
+      data: error,
+    });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export const searchMovie = (query) => async (dispatch) => {
   try {

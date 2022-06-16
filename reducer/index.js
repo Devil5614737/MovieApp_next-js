@@ -1,7 +1,13 @@
 import {
+  FETCH_ACTION_SUCCESS,
+  FETCH_COMEDY_SUCCESS,
   FETCH_DATA_FAILED,
   FETCH_DATA_REQUEST,
   FETCH_DATA_SUCCESS,
+  FETCH_DOCUMENTARIES_SUCCESS,
+  FETCH_HORROR_SUCCESS,
+  FETCH_ROMANTIC_SUCCESS,
+  FETCH_TOP_RATED_SUCCESS,
   LOGIN_USER_FAILED,
   LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
@@ -18,6 +24,20 @@ export const fetchTheData = (state = [], action) => {
     case FETCH_DATA_REQUEST:
       return { loading: true };
     case FETCH_DATA_SUCCESS:
+      return { loading: false, movies: payload };
+    case FETCH_TOP_RATED_SUCCESS:
+      return { loading: false, movies: payload };
+    case FETCH_ACTION_SUCCESS:
+      return { loading: false, movies: payload };
+    case FETCH_COMEDY_SUCCESS:
+      return { loading: false, movies: payload };
+    case FETCH_HORROR_SUCCESS:
+      return { loading: false, movies: payload };
+    case FETCH_HORROR_SUCCESS:
+      return { loading: false, movies: payload };
+    case FETCH_ROMANTIC_SUCCESS:
+      return { loading: false, movies: payload };
+    case FETCH_DOCUMENTARIES_SUCCESS:
       return { loading: false, movies: payload };
     case FETCH_DATA_FAILED:
       return { loading: false, error: payload };
