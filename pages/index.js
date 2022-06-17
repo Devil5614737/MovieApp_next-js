@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Navbar } from "../components/Navbar";
 import styles from "../styles/Home.module.css";
+
 import {
   fetchMovie,
   searchMovie,
